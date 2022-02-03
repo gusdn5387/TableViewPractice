@@ -16,6 +16,12 @@ final class ListViewController: UIViewController {
         tableView.delegate = presenter
         tableView.dataSource = presenter
         
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = presenter
+        tableView.dropDelegate = presenter
+        
+        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.identifier)
+        
         return tableView
     }()
     
@@ -29,7 +35,6 @@ final class ListViewController: UIViewController {
 extension ListViewController: ListProtocol {
     func setupLayout() {
         view.addSubview(tableView)
-        view.backgroundColor = .systemBackground
         
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
